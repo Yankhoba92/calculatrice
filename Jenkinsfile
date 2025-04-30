@@ -1,6 +1,6 @@
-pilpileine{
+pipeline{  
   agent any
-  stages{
+  stages {
     stage("Supprimer le workspace"){
       steps{
         deleteDir()
