@@ -1,5 +1,9 @@
 pipeline{  
   agent any
+    environment{
+    IMG_NAME = 'jenkins'
+    DOCKER_REPO = 'myimage_nginx'
+  }
   stages {
     stage("Supprimer le workspace"){
       steps{
@@ -14,8 +18,8 @@ pipeline{
     stage("Buid image docker"){
       steps{
         script{
-          sh 'docker build -t myimage_nginx .'
-          sh 'docker tag myimage_nginx med:myimage_nginx'
+           sh "docker build -t ${IMG_NAME} ."
+          sh "docker tag ${IMG_NAME} ${DOCKER_REPO}:${IMG_NAME}"
         }
     } 
   }
