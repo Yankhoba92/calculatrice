@@ -8,7 +8,7 @@ pipeline{
     }    
     stage("checkout SCM"){
       steps{
-        sh 'git clone https://github.com/Yankhoba92/calculatrice.git'
+        git branch: 'main', credentialsId: 'id-user', url: 'https://github.com/Yankhoba92/calculatrice.git'
       }
     } 
     stage("Buid image docker"){
@@ -22,7 +22,7 @@ pipeline{
   stage("Deploiement application"){
       steps{
         script{
-          sh 'docker rm image mynginx'
+          sh 'docker image rm mynginx'
           sh 'docker rm -f $(docker ps -a)'
           sh 'docker run -d --name monapp --hostname monapp -p 8099:80 myimage_nginx'
         }
