@@ -22,8 +22,10 @@ pipeline{
   stage("Deploiement application"){
       steps{
         script{
-          sh 'docker run -d --name monapp01 --hostname monapp01 -p 8099:80 myimage_nginx'
-          sh 'docker exec  monapp01 "ifconfig"'
+          sh "docker stop monapp || true"
+          sh "docker rm monapp || true"
+          sh "docker run -d --name monapp --hostname monapp -p 8599:80 ${IMG_NAME}"
+          sh 'docker exec monapp "ifconfig"'
         }
     } 
   }
